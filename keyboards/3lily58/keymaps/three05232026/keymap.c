@@ -7,6 +7,11 @@ enum layer_number {
   // _ADJUST
 };
 
+enum custom_keycodes {
+  UC_EPS = SAFE_RANGE,  // ε U+03B5
+  UC_THERE4,            // ∴ U+2234
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* QWERTY
@@ -68,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_MEDIA] = LAYOUT(
-  _______, KC_BRIU, KC_BRID, UC(0x03B5), UC(0x2234), _______,               KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU,
+  _______, KC_BRIU, KC_BRID, UC_EPS,    UC_THERE4,  _______,               KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU,
   _______, KC_1,    KC_2,    KC_3,    KC_MINS,  KC_EQL,                      _______, _______, _______, _______, _______, _______,
   _______, KC_4,    KC_5,    KC_6,    KC_ENT,  KC_BSPC,                      _______, _______, _______, _______, _______, _______,
   _______, KC_7,    KC_8,    KC_9,    KC_0,    _______,  _______, _______,   _______, _______, _______,  _______, _______, _______,
@@ -129,6 +134,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     set_keylog(keycode, record);
 #endif
     // set_timelog();
+
+    switch (keycode) {
+      case UC_EPS:
+        SEND_STRING(SS_LCTL(SS_LSFT("u")) SS_DELAY(50) "03b5" SS_DELAY(50) SS_TAP(X_ENT));
+        return false;
+      case UC_THERE4:
+        SEND_STRING(SS_LCTL(SS_LSFT("u")) SS_DELAY(50) "2234" SS_DELAY(50) SS_TAP(X_ENT));
+        return false;
+    }
   }
   return true;
 }
