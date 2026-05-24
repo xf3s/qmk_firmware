@@ -120,7 +120,7 @@ bool oled_task_user(void) {
 #endif // OLED_ENABLE
 
 void keyboard_post_init_user(void) {
-    set_unicode_input_mode(UC_LINX);
+    set_unicode_input_mode(UNICODE_MODE_LINUX);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
